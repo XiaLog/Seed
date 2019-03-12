@@ -1,0 +1,54 @@
+2019-02-02 16:08:26 LogFactory.java DEBUG Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+  2019-02-02 16:08:26 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:08:26 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:08:26 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:08:26 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:10:19 LogFactory.java DEBUG Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+  2019-02-02 16:10:19 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:10:19 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:10:19 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:10:19 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:10:19 JdbcTransaction.java DEBUG Opening JDBC Connection
+  2019-02-02 16:10:20 PooledDataSource.java DEBUG Created connection 1007653873.
+  2019-02-02 16:10:20 JdbcTransaction.java DEBUG Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_sendmessage values(?,?,?,?,now(),?,1) 
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), 1(Integer), first(String), how are you(String), 1(Integer)
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), null
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), null
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), null
+  2019-02-02 16:10:20 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:10:20 JdbcTransaction.java DEBUG Committing JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:10:20 JdbcTransaction.java DEBUG Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:10:20 JdbcTransaction.java DEBUG Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:10:20 PooledDataSource.java DEBUG Returned connection 1007653873 to pool.
+  2019-02-02 16:13:35 LogFactory.java DEBUG Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG PooledDataSource forcefully closed/removed all connections.
+  2019-02-02 16:13:35 JdbcTransaction.java DEBUG Opening JDBC Connection
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG Created connection 1007653873.
+  2019-02-02 16:13:35 JdbcTransaction.java DEBUG Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_sendmessage values(?,?,?,?,now(),?,1) 
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), 1(Integer), first(String), how are you(String), 1(Integer)
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), 2(Integer)
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), 3(Integer)
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==>  Preparing: insert into to_receivemessage values(null,?,?,0,now()) 
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG ==> Parameters: 1(Integer), 4(Integer)
+  2019-02-02 16:13:35 BaseJdbcLogger.java DEBUG <==    Updates: 1
+  2019-02-02 16:13:35 JdbcTransaction.java DEBUG Committing JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:13:35 JdbcTransaction.java DEBUG Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:13:35 JdbcTransaction.java DEBUG Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@3c0f93f1]
+  2019-02-02 16:13:35 PooledDataSource.java DEBUG Returned connection 1007653873 to pool.
+  

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.dao.Empdao">
+ 
+ <select id="getAll" resultType="Emp" >
+    select empid,empno,password,empname,sex,birth,idcard,email,tel,address,emptype,
+bankname,bankno,sal,comm,subsidy,hiredate,descript from tb_emp
+ </select>
+   
+   <select id="getEmp" resultType="Emp">
+       select * from tb_emp where empname=#{empname} and password=#{password}
+   </select>
+   
+   <select id="getmessagelist" resultType="map">
+   select MessageTitle,(select empname from tb_emp where empid=#{empid}) s_empname,   
+   e.empname r_empname,createdate,s.sendID s_sendid,r.ReceiveID r_receiveid
+   from to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID 
+   where (s.empid=#{empid} or r.empid=#{empid}) and (r.MessageState!=2 or s.MessageState!=0)
+   </select>
+   
+   <select id="getmessageDetails"  resultType="map">
+   select MessageTitle,(select empname from tb_emp where empid in (select empid from to_sendmessage where sendid=#{sendid})) s_empname,   
+   (SELECT empname from tb_emp where empid in (select empid from to_receivemessage where ReceiveID=#{receiveid})) r_empname,createdate,MessageContent
+   from to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid 
+where s.sendid=#{sendid} and r.ReceiveID=#{receiveid}
+   </select>
+   
+   <update id="deleteBySendids" parameterType="java.util.List">
+      update to_sendmessage set MessageState=0 where sendID in
+      <foreach collection="array" open="(" close=")" separator="," item="item">
+       #{item}
+    </foreach>
+   </update>
+   
+   <update id="deleteByReceiveids" parameterType="java.util.List">
+     update to_receivemessage set MessageState=2 where ReceiveID in
+      <foreach collection="array" open="(" close=")" separator="," item="item">
+       #{item}
+    </foreach>
+   </update>
+   
+   
+   <update id="deleteBySendid">
+   update to_sendmessage set MessageState=0 where sendID=#{sendid}
+   </update>
+    <update id="deleteByReceiveid">
+   update to_receivemessage set MessageState=2 where ReceiveID=#{receiveid}
+   </update>
+   
+  <select id="getPageList" resultType="map">
+    select MessageTitle,(select empname from tb_emp where empid=#{empid}) s_empname,   
+   e.empname r_empname,createdate,s.sendID s_sendid,r.ReceiveID r_receiveid
+   from to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID 
+   where (s.empid=#{empid} or r.empid=#{empid}) and (r.MessageState!=2 or s.MessageState!=0)
+    limit #{PageInfo.topnumber},#{PageInfo.pagesize}
+   </select>
+
+   
+   <select id="getCount" resultType="int">
+     SELECT count(*) from to_sendmessage s INNER JOIN to_receivemessage r on s.sendID=r.sendID
+      where (s.empid=#{empid} or r.empid=#{empid}) and (r.MessageState!=2 or s.MessageState!=0)
+   </select>
+   
+   
+   <insert id="insert" parameterType="Emp">
+     INSERT into tb_emp VALUES(null,#{empno},#{password},#{empname},
+     #{sex},#{birth},#{idcard},#{email},#{tel},#{address},#{emptype},
+     #{bankname},#{bankno},#{sal},#{comm},#{subsidy},#{hiredate},#{descript})
+   </insert>
+   
+   <select id="getEmpPage" resultType="Emp" parameterType="PageInfo">
+     select * from tb_emp limit #{topnumber},#{pagesize}
+   </select>
+   
+   <select id="getnumber" resultType="int">
+     select count(*) from tb_emp
+   </select>
+   
+   <select id="getEmpById" resultType="Emp">
+      select * from tb_emp where empid=#{empid}
+   </select>
+ 
+   <update id="change">
+      update tb_emp set empno=#{emp.empno},password=#{emp.password},empname=#{emp.empname},sex=#{emp.sex},
+      birth=#{emp.birth},idcard=#{emp.idcard},email=#{emp.email},tel=#{emp.tel},address=#{emp.address},emptype=#{emp.emptype},
+      bankname=#{emp.bankname},bankno=#{emp.bankno},sal=#{emp.sal},comm=#{emp.comm},
+     subsidy=#{emp.subsidy},hiredate=#{emp.hiredate},descript=#{emp.descript}
+      where empid=#{empid}
+   </update>
+   
+   <delete id="delete" parameterType="java.util.List">
+     delete from tb_emp where empid in
+     <foreach collection="array" open="(" close=")" separator="," item="item">
+       #{item}
+    </foreach>
+   </delete>
+ 
+</mapper>

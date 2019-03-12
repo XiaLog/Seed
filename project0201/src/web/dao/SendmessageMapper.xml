@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.dao.Sendmessagedao">
+ 
+ <insert id="insert" parameterType="Sendmessage" keyProperty="sendid"  useGeneratedKeys="true">
+     insert into to_sendmessage values(null,#{empid},#{messagetitle},#{messagecontent},now(),#{priority},1)
+ </insert>
+ 
+ <update id="delete">
+   update to_sendmessage set MessageState=0 where sendID=#{sendid}
+ </update>
+ 
+  <update id="deletes" parameterType="java.util.List">
+   update to_sendmessage set MessageState=0 where sendID in
+   <foreach collection="array" open="(" close=")" separator="," item="item">
+       #{item}
+    </foreach>
+ </update>
+ 
+ <select id="getsendPageList" resultMap="getmassagelist">
+   select s.sendid s_sendid,s.empid s_empid,r.ReceiveID r_receiveid,r.EmpID r_empid,MessageTitle,
+   MessageContent,MessageTitle,s.MessageState s_messagesate,createdate,e.empname empname from 
+   to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID
+   where s.empid=#{empid} and s.messagestate=1
+  limit #{PagedoSR.topnumber},#{PagedoSR.pagesize}
+ </select>
+   
+ <select id="getsendCount" resultType="int" >
+   select count(*) from 
+   to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID
+   where s.empid=#{empid} and s.messagestate=1
+ </select>
+
+ <select id="getreceivePageList" resultMap="getmassagelist">
+     SELECT s.sendid s_sendid,s.EmpID s_empid,r.ReceiveID r_receiveid,r.EmpID r_empid,MessageTitle,
+MessageContent,r.MessageState r_messagestate,OpenDate,e.empname empname
+ from tb_emp e INNER JOIN to_sendmessage s
+on e.empid=s.EmpID INNER JOIN to_receivemessage r
+on s.sendID=r.sendID
+where r.EmpID=#{empid} and r.messagestate!=2
+   limit #{PagedoSR.topnumber},#{PagedoSR.pagesize}
+ </select> 
+  
+ <select id="getreceiveCount" resultType="int" >
+    SELECT count(*)
+ from tb_emp e INNER JOIN to_sendmessage s
+on e.empid=s.EmpID INNER JOIN to_receivemessage r
+on s.sendID=r.sendID
+where r.EmpID=#{empid} and r.messagestate!=2
+ </select>
+ 
+ <select id="getmessagedetails" resultType="map">
+   select MessageTitle,(select empname from tb_emp where empid=#{empid}) s_empname,   
+   e.empname r_empname,createdate,messagecontent
+   from to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID 
+   where s.sendid=#{sendid}
+ </select>
+  
+<select id="getsendList" resultMap="getmassagelist">
+    select s.sendid s_sendid,s.empid s_empid,r.ReceiveID r_receiveid,r.empid r_empid,
+   MessageContent,MessageTitle,s.MessageState s_messagesate,createdate,e.empname empname from 
+   to_sendmessage s INNER JOIN to_receivemessage r
+   on s.sendID=r.sendid INNER JOIN tb_emp e
+   on r.EmpID=e.EmpID
+   where s.empid=#{empid} and s.messagestate=1  
+</select>
+
+
+<select id="getreceiveList" resultMap="getmassagelist">
+   SELECT s.sendid s_sendid,s.EmpID s_empid,r.ReceiveID r_receiveid,r.EmpID r_empid,MessageTitle,
+MessageContent,r.MessageState r_messagestate,OpenDate,e.empname empname
+ from tb_emp e INNER JOIN to_sendmessage s
+on e.empid=s.EmpID INNER JOIN to_receivemessage r
+on s.sendID=r.sendID
+where r.EmpID=#{empid} and r.messagestate!=2
+</select>
+
+
+
+<resultMap type="Sendmessage" id="getmassagelist">
+    <id  column="s_sendid" property="sendid"/>
+    <result column="s_empid" property="empid"/>
+    <result column="messagetitle" property="messagetitle"/>
+    <result column="messagecontent" property="messagecontent"/>
+     <result column="createdate" property="createdate"/>
+    <result column="priority" property="priority"/>
+    <result column="s_messagestate" property="messagestate"/>
+   
+   <collection property="list" ofType="Receivemessage">
+      <id column="r_receiveid" property="receiveid"/>
+      <result column="r_empid" property="empid"/>
+      <result column="r_sendid" property="sendid"/>
+      <result column="opendate" property="opendate"/> 
+      <association property="remp" javaType="Emp" >
+         <id column="r_receiveid" property="empid"/>
+         <result column="empname" property="empname"/>
+      </association>
+   </collection>
+    
+</resultMap>
+   
+</mapper>

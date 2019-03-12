@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.dao.Receivemessagedao">
+ 
+ <insert id="insert" parameterType="Receivemessage">
+     insert into to_receivemessage values(null,#{sendid},#{empid},0,now())
+ </insert>
+  
+  <update id="delete">
+  update to_receivemessage set MessageState=2 where ReceiveID=#{receiveid}
+  </update>
+  
+  <update id="deletes" parameterType="java.util.List">
+  update to_receivemessage set MessageState=2 where ReceiveID in
+   <foreach collection="array" open="(" close=")" separator="," item="item">
+       #{item}
+    </foreach>
+  </update>
+  
+  <update id="updateMessagestate">
+  update to_receivemessage set MessageState=1 where ReceiveID=#{receiveid}
+  </update>
+  
+  <select id="getmessagedetails" resultType="map">
+  select MessageTitle,e.EmpName s_empname,OpenDate,MessageContent
+from tb_emp e INNER JOIN to_sendmessage s
+on e.empid=s.EmpID INNER JOIN to_receivemessage r
+on s.sendID=r.sendID
+where r.ReceiveID=#{receiveid}
+  </select>
+   
+</mapper>
